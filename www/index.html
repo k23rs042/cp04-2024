@@ -207,19 +207,32 @@
     
  
     // 繰り返し実行する処理
-    function timer(){
-        if (active) { etime = parseInt( (new Date() - startTime)/1000 );
-        rest = period - etime;
-        $("#time").html("経過時間： " + etime);
-        $("#remain").html("残り時間： " + rest);
-        analog(rest);
+    function timer(){  
+        if(active){
+            etime = parseInt((new Date()-startTime)/1000);
+            rest=period-etime;
+            var m = parseInt(rest/60);
+            var s = parseInt(rest - m*60);
+            $("#time").html("経過時間："+etime);
+            $("#remain").html("残り時間："+m+"分"+s+"秒");
+            var mstr = "分：";
+            for (var i = 1; i <= m; i++) {
+                mstr += "〇";
+            }
+            $("#minuteStr").html(mstr);
+        
+            var sstr = "秒：";
+            for (var i = 1; i <= s; i++) {
+                sstr += "〇";
+            }
+            $("#secondStr").html(sstr);
+
+            analog(rest);
+        }
         if(rest<=0){
             active=false;
             alarm();
         }
-        }  
-        
-        
     } 
 
   </script>
